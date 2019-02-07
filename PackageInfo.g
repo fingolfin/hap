@@ -1,102 +1,108 @@
 #############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
 ##
+##  PackageInfo.g                HAP Package                Graham Ellis 
+##
+#############################################################################
 
 SetPackageInfo( rec(
 
-PackageName := "GitHubPagesForGAP",
+  PackageName := "HAP",
+  Subtitle  := "Homological Algebra Programming",
+  Version := "1.19",
+  Date    := "05/02/2019",
+  ArchiveURL 
+          := "http://hamilton.nuigalway.ie/Hap/hap1.19",
+  ArchiveFormats 
+          := ".tar.gz",
 
-Subtitle := "A GitHub Pages generator for GAP packages",
-Version := "0.2",
-Date := "04/02/2017", # dd/mm/yyyy format
 
-Persons := [
-  rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
-    IsAuthor      := true,
-    IsMaintainer  := true,
-    Email         := "max.horn@math.uni-giessen.de",
-    WWWHome       := "http://www.quendi.de/math",
-    PostalAddress := Concatenation(
-                       "AG Algebra\n",
-                       "Mathematisches Institut\n",
-                       "Justus-Liebig-Universität Gießen\n",
-                       "Arndtstraße 2\n",
-                       "35392 Gießen\n",
-                       "Germany" ),
-    Place         := "Gießen",
-    Institution   := "Justus-Liebig-Universität Gießen"
+  Persons := [ 
+    rec( 
+      LastName      := "Ellis",
+      FirstNames    := "Graham",
+      IsAuthor      := true,
+      IsMaintainer  := true,
+      Email         := "graham.ellis@nuigalway.ie",
+      WWWHome       := "http://hamilton.nuigalway.ie",
+      PostalAddress := Concatenation( [
+                         "Graham Ellis\n",
+                         "Mathematics Department\n",
+                         "NUI Galway\n",
+                         "Galway\n",
+                         "Ireland" ] ),
+      Place         := "Galway",
+      Institution   := "National University of Ireland, Galway"
+    )
+  ],  
+
+  Status  := "accepted",
+  CommunicatedBy 
+          := "Derek Holt (Warwick)",
+  AcceptDate 
+          := "03/2006",
+
+  README_URL := "http://hamilton.nuigalway.ie/Hap/README.HAP",
+  PackageInfoURL := "http://hamilton.nuigalway.ie/Hap/PackageInfo.g",
+
+  AbstractHTML := 
+    "This package provides some functions for group cohomology. ",
+
+  PackageWWWHome := "http://hamilton.nuigalway.ie/Hap/www",
+                  
+  PackageDoc := rec(
+    BookName  := "HAP",
+    ArchiveURLSubset := ["doc", "www"],
+    HTMLStart := "www/index.html",
+    PDFFile   := "doc/manual.pdf",
+    SixFile   := "doc/manual.six",
+    LongTitle := "Homological Algebra Programming Package",
+    Autoload := true 
   ),
 
-  rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
-    IsAuthor      := true,
-    IsMaintainer  := false,
-    #Email         := "author@example.com",
+
+  Dependencies := rec(
+    GAP := ">= 4.5.6",
+    NeededOtherPackages := [
+                             [ "polycyclic", ">=1.1" ],
+                             [ "crystcat",   ">=1.1" ],
+                             [ "fga",        ">=1.1" ],
+                             [ "aclib",      ">=1.1" ],
+                            #[ "gapdoc",     ">=0.0" ]
+                           ],
+    SuggestedOtherPackages := [
+                              #[ "polycyclic", ">=1.1" ],
+                              #[ "aclib",      ">=1.1" ],
+                               [ "gapdoc",      ">=0.0" ],
+			       [ "nq",         ">=1.1" ],
+                               [ "nql",         ">=0.0" ],
+                               [ "homology",    ">=0.0"   ], 
+			       [ "edim",      ">=1.2.2" ],
+			       [ "singular", ">=06.07.23" ],
+                               [ "congruence", ">=0,0" ],
+                               [ "HAPcryst", ">0.0" ],
+                               [ "xmod", ">0.0" ],
+			      ],
+
+    ExternalConditions := [["Some optional functions require Polymake software",
+    "http://polymake.org/doku.php"],
+    ["Some optional functions require Graphviz software",
+    "http://www.graphviz.org/"],
+     ["One optional function requires the Simplicial Homology GAP package",
+         "http://www.cis.udel.edu/~dumas"]
+    ]
   ),
-
-  rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
-    IsAuthor      := false,
-    IsMaintainer  := true,
-    #Email         := "janitor@example.com",
-  ),
-],
-
-Status := "other",
-
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "gap-system",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
-
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
-
-ArchiveFormats := ".tar.gz .tar.bz2",
-
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
-
-PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
-  ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
-  PDFFile   := "doc/manual.pdf",
-  SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
-),
-
-# The following dependencies are fake and for testing / demo purposes
-Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
-  ExternalConditions := []
-),
 
 AvailabilityTest := ReturnTrue,
 
-Keywords := ["GitHub Pages", "GAP"]
+BannerString     := Concatenation( "Loading HAP ",
+                            String( ~.Version ), " ...\n" ),
+
+Autoload := true,
+
+TestFile := "test/hap.tst",
+
+Keywords := [ "homology", "cohomology", "resolution", "homotopy group", 
+"module of identities" ]
 
 ));
-
 
